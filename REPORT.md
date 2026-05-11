@@ -46,7 +46,9 @@ jobs:
         run: npm run format:check
 
       - name: Run tests
-        run: npm test -- --reporter=junit --outputFile=./test-results/junit.xml
+        run: |
+          mkdir -p test-results
+          npm test -- --reporter=verbose --reporter=junit --outputFile=./test-results/junit.xml
 
       - name: Upload test artifact
         uses: actions/upload-artifact@v4
@@ -102,7 +104,8 @@ GitHub Actions 預設行為是：任一 step 的指令回傳非零 exit code，�
 Vitest 透過內建 JUnit reporter 輸出標準格式：
 
 ```bash
-npm test -- --reporter=junit --outputFile=./test-results/junit.xml
+mkdir -p test-results
+npm test -- --reporter=verbose --reporter=junit --outputFile=./test-results/junit.xml
 ```
 
 `dorny/test-reporter` 需要 `checks: write` 權限才能寫入 GitHub Checks，因此在頂層設定：
