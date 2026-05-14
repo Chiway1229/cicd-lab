@@ -48,7 +48,7 @@ jobs:
       - name: Run tests
         run: |
           mkdir -p test-results
-          npm test
+          npm test -- --reporter=default --reporter=junit --outputFile.junit=./test-results/junit.xml
 
       - name: Upload test artifact
         uses: actions/upload-artifact@v4
